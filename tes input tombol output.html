@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="su">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terjemahkan ke Aksara Sunda</title>
+    <link rel="stylesheet" href="tes translate.css">
+    <!-- <style type="text/css"> -->
+    <!-- </style> -->
+</head>
+<body>
+    <img class="add-a-heading" src="image/background.png" alt="">
+    <!-- <div class="group">
+        <div class="overlap-group">
+        </div>
+    </div> -->
+    <div class="content">
+      <!-- <div class="header container">
+      </div> -->
+
+      <div class="container">
+				<div class="rectangle" id="showPopup">To-AksaraKU</div>
+				<input id="inputText" type="text" class="input-field" placeholder="Masukkan kalimat di sini..." />
+				<div id="outputText" class="output"></div>
+      </div>
+    </div>
+
+		
+		<div class="overlay" id="overlay"></div>
+		
+		<div class="pop-up" id="popupMenu">
+			<p>Welcome to AksaraKU!</p>
+				<ul>
+						<li><a href="home.html">Home</a></li>
+						<li><a href="about.html">About</a></li>
+						<li><a href="tes input tombol output.html">Translate</a></li>
+						<li><a href="kamus.html">Kamus</a></li>
+				</ul>
+				<button class="close-btn" id="closePopup">Close</button>
+		</div>
+
+		
+		<script src="pop up.js"></script>
+
+    <script>
+        // Kamus transliterasi aksara Sunda yang lebih lengkap
+        const aksaraSundaMap = {
+            'a': 'ᮃ', 'i': 'ᮄ', 'u': 'ᮅ', 'e': 'ᮆ', 'é': 'ᮆ', 'o': 'ᮇ', 'eu': 'ᮈ',
+       "ka": "ᮊ", "ki": "ᮊᮤ", "ku": "ᮊᮥ", "ke": "ᮊᮨ", "ko": "ᮊᮨ", "k": "ᮊ᮪", "ga": "ᮌ", "gi": "ᮌᮤ", "gu": "ᮌᮥ", "ge": "ᮌᮨ", "go": "ᮌᮨ", "g": "ᮌ᮪", "nga": "ᮍ", "ng": "ᮍ᮪", "ca": "ᮎ", "ci": "ᮎᮤ", "cu": "ᮎᮥ", "ce": "ᮎᮨ", "co": "ᮎᮨ", "c": "ᮎ᮪", "ja": "ᮏ", "ji": "ᮏᮤ", "ju": "ᮏᮥ", "je": "ᮏᮨ", "jo": "ᮏᮨ", "j": "ᮏ᮪", "nya": "ᮑ", "ny": "ᮑ᮪", "ta": "ᮒ", "ti": "ᮒᮤ", "tu": "ᮒᮥ", "te": "ᮒᮨ", "to": "ᮒᮨ", "t": "ᮒ᮪", "da": "ᮓ", "di": "ᮓᮤ", "du": "ᮓᮥ", "de": "ᮓᮨ", "do": "ᮓᮨ", "d": "ᮓ᮪", "na": "ᮔ", "ni": "ᮔᮤ", "nu": "ᮔᮥ", "ne": "ᮔᮨ", "no": "ᮔᮨ", "n": "ᮔ᮪", "pa": "ᮕ", "pi": "ᮕᮤ", "pu": "ᮕᮥ", "pe": "ᮕᮨ", "po": "ᮕᮨ", "p": "ᮕ᮪", "ba": "ᮘ", "bi": "ᮘᮤ", "bu": "ᮘᮥ", "be": "ᮘᮨ", "bo": "ᮘᮨ", "b": "ᮘ᮪", "ma": "ᮙ", "mi": "ᮙᮤ", "mu": "ᮙᮥ", "me": "ᮙᮨ", "mo": "ᮙᮨ", "m": "ᮙ᮪", "ya": "ᮚ", "yi": "ᮚᮤ", "yu": "ᮚᮥ", "ye": "ᮚᮨ", "yo": "ᮚᮨ", "y": "ᮚ᮪", "ra": "ᮛ", "ri": "ᮛᮤ", "ru": "ᮛᮥ", "re": "ᮛᮨ", "ro": "ᮛᮨ", "r": "ᮛ᮪", "la": "ᮜ", "li": "ᮜᮤ", "lu": "ᮜᮥ", "le": "ᮜᮨ", "lo": "ᮜᮨ", "l": "ᮜ᮪", "wa": "ᮝ", "wi": "ᮝᮤ", "wu": "ᮝᮥ", "we": "ᮝᮨ", "wo": "ᮝᮨ", "w": "ᮝ᮪", "sa": "ᮞ", "si": "ᮞᮤ", "su": "ᮞᮥ", "se": "ᮞᮨ", "so": "ᮞᮨ", "s": "ᮞ᮪", "ha": "ᮠ", "hi": "ᮠᮤ", "hu": "ᮠᮥ", "he": "ᮠᮨ", "ho": "ᮠᮨ", "h": "ᮠ᮪", "fa": "ᮖ", "fi": "ᮖᮤ", "fu": "ᮖᮥ", "fe": "ᮖᮨ", "fo": "ᮖᮨ", "f": "ᮖ᮪", "va": "ᮗ", "vi": "ᮗᮤ", "vu": "ᮗᮥ", "ve": "ᮗᮨ", "vo": "ᮗᮨ", "v": "ᮗ᮪", "qa": "ᮋ", "qi": "ᮋᮤ", "qu": "ᮋᮥ", "qe":     "ᮋᮨ", "qo": "ᮋᮨ", "q": "ᮋ᮪",'keu': 'ᮊᮩ', 'geu': 'ᮌᮩ', 'ngeu': 'ᮍᮩ', 'ceu': 'ᮎᮩ', 'jeu': 'ᮏᮩ',
+            'nyeu': 'ᮑᮩ', 'teu': 'ᮒᮩ', 'deu': 'ᮓᮩ', 'neu': 'ᮔᮩ', 'peu': 'ᮕᮩ',
+            'beu': 'ᮘᮩ', 'meu': 'ᮙᮩ', 'yeu': 'ᮚᮩ', 'reu': 'ᮛᮩ', 'leu': 'ᮜᮩ',
+
+          ' ': ' ', '.': '᳚', ',': '᳛'
+        };
+		
+		function isVocal(t){
+		  if(t=="a" || t=="i" || t=="u" || t=="e" || t=="o") return true;
+		  return false;
+		}
+		function isEu(e='',u=''){
+			if(e == 'eu' || e+u == 'eu') return true;
+			return false;
+		}
+		function isNg(e='',u=''){
+			if(e == 'ng' || e+u == 'ng') return true;
+			return false;
+		}
+		function splitText(text){
+//		  const el = document.getElementById('..isi weh naon..')
+//		  const text = el.value.toLowerCase();
+//		  const text = text;
+		  // console.log(text);
+		  const splittedText = text.split('');
+		  // console.log(splittedText, splittedText.length);
+		  let ans = [];
+
+		  for(let i=0; i<splittedText.length; i++){
+			// console.log(i);
+			let t = splittedText[i];
+			let u = (i<=splittedText.length - 1) ? splittedText[i+1] : '';
+			let v = (i<=splittedText.length - 2) ? splittedText[i+2] : '';
+			// console.log(t,u,v);
+			// console.log('-')
+			if(isEu(t, u)) {
+			  // console.log(t,u, 'eu')
+			  ans.push(t+u);
+			  i++;
+			  // break;
+			}
+			// console.log('--')
+			else if(isVocal(t)) {
+			  // console.log(t, 'aiueo')
+			  ans.push(t);
+			  // break;
+			}
+			// console.log('---')
+			else if(!isVocal(t)){
+			  if(t==' ') ans.push(t);
+			  else if(isEu(u, v)){
+				// console.log(t,u,v,'teu')
+				ans.push(t+u+v);
+				i+=2;
+				// break;
+			  }
+			  else if(isVocal(u)){
+				// console.log(t,u,'ta')
+				ans.push(t+u);
+				i++;
+				// break;
+			  }
+			  else if (isNg(t,u)) {
+				// console.log(t+u, 'ng')
+				ans.push(t+u);
+				i++;
+			  } else {
+				// console.log(t,'t')
+				ans.push(t);
+			  }
+			}
+		  }
+
+		  console.log(ans);
+
+		  return ans;
+		}
+		
+		
+
+        // Fungsi transliterasi
+        function transliterateToAksara() {
+            let inputText = document.getElementById('inputText').value.toLowerCase();
+			console.log(inputText);
+            let translatedText = '';
+            let i = 0;
+			
+			let splittedText = splitText(inputText);
+			
+			splittedText.forEach(t => {
+				translatedText += aksaraSundaMap[t] ?? t;
+			})
+
+
+            document.getElementById('outputText').innerText = translatedText;
+        }
+
+        // Event listener untuk input
+        document.getElementById('inputText').addEventListener('input', transliterateToAksara);
+    </script>
+</body>
+</html>
